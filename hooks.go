@@ -4,11 +4,12 @@ package hooks
 // and sending of webhooks
 
 import (
-	"time"
 	"bytes"
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
+	"time"
 )
 
 // WebhookData is the data sent to a Discord Webhook
@@ -24,11 +25,11 @@ type Embed struct {
 	Title       string  `json:"title,omitempty"`
 	TitleURL    string  `json:"url,omitempty"`
 	Description string  `json:"description,omitempty"`
-	Colour      string  `json:"color,omitempty"`
+	Colour      int64   `json:"color,omitempty"`
 	Author      Author  `json:"author"`
 	Footer      Footer  `json:"footer"`
 	Fields      []Field `json:"fields,omitempty"`
-	Timestamp   string    `json:"timestamp,omitempty"`
+	Timestamp   string  `json:"timestamp,omitempty"`
 }
 
 // Field is a Discord embed field
@@ -75,6 +76,13 @@ func (e *Embed) SetAuthor(text, url, iconURL string) {
 // SetFooter sets the footer of an Embed
 func (e *Embed) SetFooter(text, iconURL string) {
 	e.Footer = Footer{Text: text, IconURL: iconURL}
+}
+
+// SetColour sets the footer of an Embed
+func (e *Embed) SetColour(hexCode string) {
+	if s, err := strconv.ParseInt(hexCode, 16, 64); err == nil {
+		e.Colour = s
+	}
 }
 
 // SetTimestamp sets the timestamp of an Embed
