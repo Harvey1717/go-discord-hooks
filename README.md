@@ -12,6 +12,7 @@ isSent := embed.Send(
   "WEBHOOK_CONTENT",
   "WEBHOOK_NAME",
   "WEBHOOK_ICON_URL")
+  
 if isSent {
   fmt.Println("Sent Embed!")
 }
