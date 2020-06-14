@@ -6,7 +6,7 @@ embed := hooks.NewEmbed()
 embed.Title = "Click Me!"
 embed.TitleURL = "https://twitter.com"
 embed.Description = "Hey! This is a decription"
-embed.Colour = "4369909"
+embed.SetColour("42f5b9")
 embed.SetTimestamp()
 embed.AddField("Field Title One", "Field Value One", false)
 embed.AddField("Field Title Two", "Field Value Two", false)
