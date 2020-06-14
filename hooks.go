@@ -4,6 +4,7 @@ package hooks
 // and sending of webhooks
 
 import (
+	"time"
 	"bytes"
 	"encoding/json"
 	"fmt"
@@ -27,7 +28,7 @@ type Embed struct {
 	Author      Author  `json:"author"`
 	Footer      Footer  `json:"footer"`
 	Fields      []Field `json:"fields,omitempty"`
-	Timestamp   bool    `json:"timestamp,omitempty"`
+	Timestamp   string    `json:"timestamp,omitempty"`
 }
 
 // Field is a Discord embed field
@@ -74,6 +75,11 @@ func (e *Embed) SetAuthor(text, url, iconURL string) {
 // SetFooter sets the footer of an Embed
 func (e *Embed) SetFooter(text, iconURL string) {
 	e.Footer = Footer{Text: text, IconURL: iconURL}
+}
+
+// SetTimestamp sets the timestamp of an Embed
+func (e *Embed) SetTimestamp() {
+	e.Timestamp = time.Now().Format(time.RFC3339)
 }
 
 func (e Embed) getWebhookData(content, username, avatarURL string) []byte {
