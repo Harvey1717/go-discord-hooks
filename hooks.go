@@ -4,9 +4,9 @@ package hooks
 // and sending of webhooks
 
 import (
-	"fmt"
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
@@ -32,9 +32,9 @@ type Embed struct {
 
 // Field is a Discord embed field
 type Field struct {
-	name   string
-	value  string
-	inline bool
+	Name   string `json:"name,omitempty"`
+	Value  string `json:"value,omitempty"`
+	Inline bool   `json:"inline,omitempty"`
 }
 
 // Author is Discord embed author data
@@ -50,18 +50,28 @@ type Footer struct {
 	IconURL string `json:"icon_url,omitempty"`
 }
 
-// NewEmbed creates and returns an instance of Embed
+// NewEmbed creates and returns an Embed
 func NewEmbed() Embed {
 	embed := Embed{Footer: Footer{}}
 	return embed
 }
 
-// SetAuthor sets the author of an Embed (pointer receiver)
+// AddField creates a Field and adds it to an Embed
+func (e *Embed) AddField(name, value string, inline bool) {
+	field := Field{
+		Name:   name,
+		Value:  value,
+		Inline: inline,
+	}
+	e.Fields = append(e.Fields, field)
+}
+
+// SetAuthor sets the author of an Embed
 func (e *Embed) SetAuthor(text, url, iconURL string) {
 	e.Author = Author{Text: text, URL: url, IconURL: iconURL}
 }
 
-// SetFooter sets the footer of an Embed (pointer receiver)
+// SetFooter sets the footer of an Embed
 func (e *Embed) SetFooter(text, iconURL string) {
 	e.Footer = Footer{Text: text, IconURL: iconURL}
 }
