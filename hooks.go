@@ -22,14 +22,15 @@ type WebhookData struct {
 
 // Embed is a Discord embed
 type Embed struct {
-	Title       string  `json:"title,omitempty"`
-	TitleURL    string  `json:"url,omitempty"`
-	Description string  `json:"description,omitempty"`
-	Colour      int64   `json:"color,omitempty"`
-	Author      Author  `json:"author"`
-	Footer      Footer  `json:"footer"`
-	Fields      []Field `json:"fields,omitempty"`
-	Timestamp   string  `json:"timestamp,omitempty"`
+	Title       string    `json:"title,omitempty"`
+	TitleURL    string    `json:"url,omitempty"`
+	Description string    `json:"description,omitempty"`
+	Colour      int64     `json:"color,omitempty"`
+	Author      Author    `json:"author"`
+	Footer      Footer    `json:"footer"`
+	Thumbnail   Thumbnail `json:"thumbnail"`
+	Fields      []Field   `json:"fields,omitempty"`
+	Timestamp   string    `json:"timestamp,omitempty"`
 }
 
 // Field is a Discord embed field
@@ -50,6 +51,11 @@ type Author struct {
 type Footer struct {
 	Text    string `json:"text,omitempty"`
 	IconURL string `json:"icon_url,omitempty"`
+}
+
+// Thumbnail is Discord embed thumbnail data
+type Thumbnail struct {
+	ImageURL string `json:"url,omitempty"`
 }
 
 // NewEmbed creates and returns an Embed
@@ -76,6 +82,11 @@ func (e *Embed) SetAuthor(text, url, iconURL string) {
 // SetFooter sets the footer of an Embed
 func (e *Embed) SetFooter(text, iconURL string) {
 	e.Footer = Footer{Text: text, IconURL: iconURL}
+}
+
+// SetThumbnail sets the thumbnail of an Embed
+func (e *Embed) SetThumbnail(imageURL string) {
+	e.Thumbnail = Thumbnail{ImageURL: imageURL}
 }
 
 // SetColour sets the footer of an Embed
